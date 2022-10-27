@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Chat;
 
 class ChatController extends Controller
 {
@@ -13,7 +14,13 @@ class ChatController extends Controller
      */
     public function index()
     {
-        return view('chat/index');
+       $length = Chat::all()->count();
+
+       //表示する件数を代入する
+       $display = 5;
+
+      $chats = Chat::offset($length-$display)->limit($display)->get();
+      return view('chat/index', compact('chats'));
     }
 
     /**
@@ -35,6 +42,10 @@ class ChatController extends Controller
     public function store(Request $request)
     {
         //
+        $chat = new Chat;
+        $form = $request->all();
+        $chat->fill($form)->save();
+        return redirect('/chat');
     }
 
     /**
