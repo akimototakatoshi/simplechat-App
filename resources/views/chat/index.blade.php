@@ -27,8 +27,8 @@
         </div>
         <form class="my-4 py-2 px-4 rounded-lg bg-gray-300 text-sm flex flex-col md:flex-row flex-grow" action="/chat" method="POST">
             @csrf
-            <input type="hidden" name="user_identifier" value={{$user_identifier}}>
-            <input class="py-1 px-2 rounded text-center flex-initial" type="text" name="user_name" placeholder="UserName" maxlength="20" vlue="{{$user_name}}" required>
+            <input type="hidden" name="user_identifier" value={{sesssion($user_identifier)}}>
+            <input class="py-1 px-2 rounded text-center flex-initial" type="text" name="user_name" placeholder="UserName" maxlength="20" vlue="{{session($user_name)}}" required>
             <input class="mt-2 md:mt-0 md:ml-2 py-1 px-2 rounded flex-auto" type="text" name="message" placeholder="Input message." maxlength="200" autofocs required>
             <button class="mt-2 md:mt-0 md:ml-2 py-1 px-2 rounded text-center bg-gray-500 text-white" type="submit">Send</button>
         </form>
