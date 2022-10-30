@@ -18,6 +18,9 @@ class ChatController extends Controller
         $user_identifier = $request->session()->get('user_identifier', Str::random(20));
         session(['user_identifier' => $user_identifier]);       
         
+       //ユーザー名を変数に登録（デフォルト時：Guest）
+       $user_name = $request->session()->get('user_name', 'Guest');
+
         //データベースの件数を取得 
        $length = Chat::all()->count();
 
@@ -25,7 +28,8 @@ class ChatController extends Controller
        $display = 5;
 
       $chats = Chat::offset($length-$display)->limit($display)->get();
-      return view('chat/index', compact('chats', 'user_identifier'));
+      return view('chat/index', compact('chats', 'user_identifier','user_name'));
+
     }
 
     /**
@@ -46,7 +50,9 @@ class ChatController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //ユーザー名を取得、セッションに登録
+        sesssion(['user_name'->$request->user_name]);
+
         $chat = new Chat;
         $form = $request->all();
         $chat->fill($form)->save();
