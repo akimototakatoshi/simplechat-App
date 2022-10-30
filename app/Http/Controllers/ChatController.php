@@ -29,7 +29,7 @@ class ChatController extends Controller
        $display = 5;
 
       $chats = Chat::offset($length-$display)->limit($display)->get();
-      return view('chat/index', compact('chats', 'user_identifier','user_name'));
+      return view('chat/index', compact('chats'));
 
     }
 
